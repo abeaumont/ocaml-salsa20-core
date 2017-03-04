@@ -2,8 +2,10 @@ let test_salsa20_8_core ~input ~output =
   let open Nocrypto.Uncommon.Cs in
   let open Cstruct in
   let input = of_hex input
-  and output = to_string (of_hex output) in
-  (fun () -> Alcotest.check Alcotest.string "Salsa20/8 Core test" output (to_string (Salsa20_core.salsa20_8_core input)))
+  and output = output |> of_hex |> to_string in
+  (fun () ->
+     let output2 = input |> Salsa20_core.salsa20_8_core |> to_string in
+     Alcotest.check Alcotest.string "Salsa20/8 Core test" output output2)
 
 let salsa20_8_core_test1 =
   test_salsa20_8_core
