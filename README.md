@@ -5,3 +5,24 @@
 
 A pure OCaml implementation of [Salsa20 Core](http://cr.yp.to/salsa20.html) functions, both Salsa20/20 Core and the reduced Salsa20/8 Core and Salsa20/12 Core functions.
 
+Salsa 20 Core are functions from 64-byte strings to 64-byte strings.
+
+## Installation
+
+```
+opam install salsa20-core
+```
+
+## Usage
+
+```ocaml
+utop[0]> #require "salsa20-core";;
+utop[1]> 0
+|> Char.chr
+|> String.make 64
+|> Cstruct.of_string
+|> Salsa20_core.salsa20_20_core (* or salsa20_12_core / salsa20_8_core *)
+|> Cstruct.to_string;;
+- : string =
+"\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+```
