@@ -18,6 +18,7 @@ depends: [
   "ocamlfind" {build}
   "ocamlbuild" {build}
   "topkg" {build}
+  "ocb-stubblr" {build}
   "cstruct" {>= "1.7.0"}
   "nocrypto" {>= "0.5.3"}
   "alcotest" {test}

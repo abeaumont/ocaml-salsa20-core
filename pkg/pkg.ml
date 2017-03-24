@@ -2,12 +2,16 @@
 #directory "pkg"
 #use "topfind"
 #require "topkg"
+#require "ocb-stubblr.topkg"
 open Topkg
+open Ocb_stubblr_topkg
+
+let build = Pkg.build ~cmd ()
 
 let () =
-  Pkg.describe "salsa20-core" @@ fun _c ->
+  Pkg.describe "salsa20-core" ~build @@ fun _c ->
   Ok [
+    Pkg.clib "libsalsa-core.clib";
     Pkg.mllib "salsa20-core.mllib";
     Pkg.test "salsa20_core_tests"
   ]
-    Pkg.clib "libsalsa-core.clib";
