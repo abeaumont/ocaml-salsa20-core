@@ -20,7 +20,7 @@ depends: [
   "topkg" {build}
   "ocb-stubblr" {build}
   "cstruct" {>= "1.7.0"}
-  "nocrypto" {>= "0.5.3"}
+  "nocrypto" {test}
   "alcotest" {test}
 ]
 available: [ ocaml-version >= "4.02.0" ]
