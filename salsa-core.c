@@ -1,5 +1,9 @@
 #include <stdint.h>
 
+#define CAML_NAME_SPACE
+#include <caml/mlvalues.h>
+#include <caml/bigarray.h>
+
 uint32_t r(uint32_t a, int b) {
   int rs = 32 - b;
   return (a << b) | (a >> rs);
@@ -30,10 +34,10 @@ void set_u32_le(uint8_t *input, int offset, uint32_t value) {
   input[offset + 3] = (value >> 24) & 0xff;
 }
 
-void salsa_core(int count, uint8_t *hash) {
+void salsa_core(int count, uint8_t *src, uint8_t *dst) {
   uint32_t x[16];
   for (int i = 0; i < 16; i++) {
-    x[i] = get_u32_le(hash, i * 4);
+    x[i] = get_u32_le(src, i * 4);
   }
   for (int i = 0; i < count; i++) {
     quarterround(x, 0, 4, 8, 12);
@@ -48,35 +52,14 @@ void salsa_core(int count, uint8_t *hash) {
   }
   for (int i = 0; i < 16; i++) {
     uint32_t xi = x[i];
-    uint32_t hj = get_u32_le(hash, i * 4);
-    set_u32_le(hash, i * 4, xi + hj);
+    uint32_t hj = get_u32_le(src, i * 4);
+    set_u32_le(dst, i * 4, xi + hj);
   }
 }
-  
-void salsa20_8_core(uint8_t *hash) {
-  salsa_core(4, hash);
-}
 
-void salsa20_12_core(uint8_t *hash) {
-  salsa_core(6, hash);
-}
-
-void salsa20_20_core(uint8_t *hash) {
-  salsa_core(10, hash);
-}
-
-int main () {
-  uint8_t hash[64] = {
-    0x06, 0x7c, 0x53, 0x92, 0x26, 0xbf, 0x09, 0x32,
-    0x04, 0xa1, 0x2f, 0xde, 0x7a, 0xb6, 0xdf, 0xb9,
-    0x4b, 0x1b, 0x00, 0xd8, 0x10, 0x7a, 0x07, 0x59,
-    0xa2, 0x68, 0x65, 0x93, 0xd5, 0x15, 0x36, 0x5f,
-    0xe1, 0xfd, 0x8b, 0xb0, 0x69, 0x84, 0x17, 0x74,
-    0x4c, 0x29, 0xb0, 0xcf, 0xdd, 0x22, 0x9d, 0x6c,
-    0x5e, 0x5e, 0x63, 0x34, 0x5a, 0x75, 0x5b, 0xdc,
-    0x92, 0xbe, 0xef, 0x8f, 0xc4, 0xb0, 0x82, 0xba
-  };
-  for (int i = 0; i < 1000000; i++) {
-    salsa20_20_core(hash);
-  }
+CAMLprim value
+caml_salsa_core(value count, value src, value dst)
+{
+  salsa_core(Int_val(count), Caml_ba_data_val(src), Caml_ba_data_val(dst));
+  return Val_unit;
 }
