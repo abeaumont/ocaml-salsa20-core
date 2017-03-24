@@ -28,10 +28,10 @@ static inline uint32_t get_u32_le(uint8_t *input, int offset) {
 }
 
 static inline void set_u32_le(uint8_t *input, int offset, uint32_t value) {
-  input[offset] = value & 0xff;
-  input[offset + 1] = (value >> 8) & 0xff;
-  input[offset + 2] = (value >> 16) & 0xff;
-  input[offset + 3] = (value >> 24) & 0xff;
+  input[offset] = (uint8_t) value;
+  input[offset + 1] = (uint8_t) (value >> 8);
+  input[offset + 2] = (uint8_t) (value >> 16);
+  input[offset + 3] = (uint8_t) (value >> 24);
 }
 
 static void salsa_core(int count, uint8_t *src, uint8_t *dst) {
