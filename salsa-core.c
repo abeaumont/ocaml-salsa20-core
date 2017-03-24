@@ -4,37 +4,37 @@
 #include <caml/mlvalues.h>
 #include <caml/bigarray.h>
 
-uint32_t r(uint32_t a, int b) {
+static uint32_t r(uint32_t a, int b) {
   int rs = 32 - b;
   return (a << b) | (a >> rs);
 }
 
-uint32_t combine(uint32_t y0, uint32_t y1, uint32_t y2, int shift) {
+static uint32_t combine(uint32_t y0, uint32_t y1, uint32_t y2, int shift) {
   return r(y1 + y2, shift) ^ y0;
 }
 
-void quarterround(uint32_t *x, int y0, int y1, int y2, int y3) {
+static void quarterround(uint32_t *x, int y0, int y1, int y2, int y3) {
   x[y1] = combine(x[y1], x[y0], x[y3], 7);
   x[y2] = combine(x[y2], x[y1], x[y0], 9);
   x[y3] = combine(x[y3], x[y2], x[y1], 13);
   x[y0] = combine(x[y0], x[y3], x[y2], 18);
 }
 
-uint32_t get_u32_le(uint8_t *input, int offset) {
+static uint32_t get_u32_le(uint8_t *input, int offset) {
   return input[offset]
     | (input[offset + 1] << 8)
     | (input[offset + 2] << 16)
     | (input[offset + 3] << 24);
 }
 
-void set_u32_le(uint8_t *input, int offset, uint32_t value) {
+static void set_u32_le(uint8_t *input, int offset, uint32_t value) {
   input[offset] = value & 0xff;
   input[offset + 1] = (value >> 8) & 0xff;
   input[offset + 2] = (value >> 16) & 0xff;
   input[offset + 3] = (value >> 24) & 0xff;
 }
 
-void salsa_core(int count, uint8_t *src, uint8_t *dst) {
+static void salsa_core(int count, uint8_t *src, uint8_t *dst) {
   uint32_t x[16];
   for (int i = 0; i < 16; i++) {
     x[i] = get_u32_le(src, i * 4);
