@@ -10,3 +10,4 @@ let () =
     Pkg.mllib "salsa20-core.mllib";
     Pkg.test "salsa20_core_tests"
   ]
+    Pkg.clib "libsalsa-core.clib";
