@@ -7,7 +7,7 @@ let of_hex s =
         | 'A' .. 'F' as x -> Char.code x - Char.code 'A' + 10
         | 'a' .. 'f' as x -> Char.code x - Char.code 'a' + 10
         | '0' .. '9' as x -> Char.code x - Char.code '0'
-        | x -> invalid_arg "Non-hexadecimal digit"
+        | _ -> invalid_arg "Non-hexadecimal digit"
     and cs = Cstruct.create (l / 2) in
     let rec loop i =
       if i = l then
