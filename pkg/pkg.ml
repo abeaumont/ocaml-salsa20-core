@@ -13,5 +13,6 @@ let () =
   Ok [
     Pkg.clib "libsalsa-core.clib";
     Pkg.mllib "salsa20-core.mllib";
-    Pkg.test "salsa20_core_tests"
+    Pkg.test "salsa20_core_tests";
+    Pkg.test "utils_tests"
   ]
