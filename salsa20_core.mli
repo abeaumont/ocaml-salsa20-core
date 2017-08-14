@@ -16,3 +16,7 @@ val salsa20_12_core : Cstruct.t -> Cstruct.t
     [input] must be 16 blocks of 32 bits.
     @raise Invalid_argument if [input] is not of the correct size *)
 val salsa20_20_core : Cstruct.t -> Cstruct.t
+
+module Utils : sig
+  val of_hex : string -> Cstruct.t
+end
