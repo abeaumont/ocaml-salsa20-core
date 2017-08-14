@@ -1,5 +1,25 @@
+let of_hex s =
+  let l = String.length s in
+  if l mod 2 <> 0 then
+    invalid_arg "Odd-length string"
+  else
+    let int_of_hex = function
+        | 'A' .. 'F' as x -> Char.code x - Char.code 'A' + 10
+        | 'a' .. 'f' as x -> Char.code x - Char.code 'a' + 10
+        | '0' .. '9' as x -> Char.code x - Char.code '0'
+        | x -> invalid_arg "Non-hexadecimal digit"
+    and cs = Cstruct.create (l / 2) in
+    let rec loop i =
+      if i = l then
+        cs
+      else
+        let msn = int_of_hex s.[i]
+        and lsn = int_of_hex s.[i + 1] in
+        (Cstruct.set_uint8 cs (i / 2) (msn lsl 4 + lsn);
+         loop  (i + 2)) in
+    loop 0
+
 let test_salsa20_core ~f ~input ~output =
-  let open Nocrypto.Uncommon.Cs in
   let open Cstruct in
   let input = of_hex input
   and output = output |> of_hex |> to_string in
@@ -66,7 +86,6 @@ let salsa20_20_core_tests = [
 
 (* Salsa20/20 Core with 1M iterations *)
 let test_salsa20_20_core_1M ~input ~output =
-  let open Nocrypto.Uncommon.Cs in
   let open Cstruct in
   let input = of_hex input
   and output = output |> of_hex |> to_string in
