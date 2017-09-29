@@ -22,6 +22,6 @@ let () =
     Pkg.clib "libsalsa-core.clib";
     Pkg.mllib ~api:["Salsa20_core"] "salsa20-core.mllib";
     Pkg.test "salsa20_core_tests";
-    Pkg.test "utils_tests";
+    Pkg.test "salsa20_utils_tests";
     mirage ~xen ~fs "libsalsa-core.clib";
   ]
