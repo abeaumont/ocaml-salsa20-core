@@ -2,11 +2,11 @@ true : annot, bin_annot
 true : warn_error(+1..49)
 true : warn(+A-4-6-7-9-40-42-44-48)
 
-<*.c>: ccopt(--std=c99 -Wall -Wextra -O3)
+<**/*.c>: ccopt(--std=c99 -Wall -Wextra -O3)
 
-<utils.ml>: package(cstruct)
+<salsa20_utils.ml>: package(cstruct)
 <salsa20_core.{ml,mli}>: package(cstruct)
 <salsa20-core.cm{,x}a>: link_stubs(libsalsa-core)
 
-<salsa20_core_tests.{ml,native,byte}>: use_salsa20-core, package(cstruct, alcotest)
-<utils_tests.{ml,native,byte}>: use_salsa20-core, package(cstruct, alcotest)
+<salsa20_core_tests.{ml,native,byte}>: use_salsa20-core, package(cstruct alcotest)
+<salsa20_utils_tests.{ml,native,byte}>: use_salsa20-core, package(cstruct alcotest)
