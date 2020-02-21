@@ -1,7 +1,7 @@
 let test_salsa20_core ~f ~input ~output =
   let open Cstruct in
-  let input = Salsa20_core.Utils.of_hex input
-  and output = output |> Salsa20_core.Utils.of_hex |> to_string in
+  let input = of_hex input
+  and output = output |> of_hex |> to_string in
   (fun () ->
      let output2 = input |> f |> to_string in
      Alcotest.check Alcotest.string "Salsa20 Core test" output output2)
@@ -66,8 +66,8 @@ let salsa20_20_core_tests = [
 (* Salsa20/20 Core with 1M iterations *)
 let test_salsa20_20_core_1M ~input ~output =
   let open Cstruct in
-  let input = Salsa20_core.Utils.of_hex input
-  and output = output |> Salsa20_core.Utils.of_hex |> to_string in
+  let input = of_hex input
+  and output = output |> of_hex |> to_string in
   (fun () ->
      let o = ref input in
      for _ = 1 to 1_000_000 do

@@ -16,11 +16,3 @@ val salsa20_12_core : Cstruct.t -> Cstruct.t
     [input] must be 16 blocks of 32 bits.
     @raise Invalid_argument if [input] is not of the correct size *)
 val salsa20_20_core : Cstruct.t -> Cstruct.t
-
-module Utils : sig
-  (** [of_hex input] is [output], the hexadecimal parser function.
-      [input] must be a even-sized string of hexadecimal chars.
-      @raise Invalid_argument if [input] contains any invalid char
-      or its size is odd *)
-  val of_hex : string -> Cstruct.t
-end
