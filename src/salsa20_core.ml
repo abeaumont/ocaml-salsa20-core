@@ -1,7 +1,5 @@
 open Cstruct
 
-module Utils = Salsa20_utils
-
 module Salsa_Core = struct
   external salsa_core : int -> buffer -> buffer -> unit = "caml_salsa_core" [@@noalloc]
 end
