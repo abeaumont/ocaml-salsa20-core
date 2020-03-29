@@ -1,3 +1,7 @@
+# 1.0.0 (2020-03-30)
+
+* Port to dune (thanks to @hannesm)
+
 # 0.3.0 (2017-08-14)
 
 * Create a new of_hex function in the Utils module
