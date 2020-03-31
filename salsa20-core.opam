@@ -1,10 +1,9 @@
 opam-version: "2.0"
-name:         "salsa20-core"
 homepage:     "https://github.com/abeaumont/ocaml-salsa20-core"
 dev-repo:     "git+https://github.com/abeaumont/ocaml-salsa20-core.git"
 bug-reports:  "https://github.com/abeaumont/ocaml-salsa20-core/issues"
 doc:          "https://abeaumont.github.io/ocaml-salsa20-core/"
-author:       "Alfredo Beaumont <alfredo.beaumont@gmail.com>"
+authors:      "Alfredo Beaumont <alfredo.beaumont@gmail.com>"
 maintainer:   "Alfredo Beaumont <alfredo.beaumont@gmail.com>"
 license:      "BSD2"
 
