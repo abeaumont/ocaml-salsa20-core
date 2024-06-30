@@ -20,7 +20,7 @@ static inline void quarterround(uint32_t *x, int y0, int y1, int y2, int y3) {
   x[y0] = combine(x[y0], x[y3], x[y2], 18);
 }
 
-static inline uint32_t get_u32_le(uint8_t *input, int offset) {
+static inline uint32_t get_u32_le(const uint8_t *input, int offset) {
   return input[offset]
     | (input[offset + 1] << 8)
     | (input[offset + 2] << 16)
@@ -34,7 +34,7 @@ static inline void set_u32_le(uint8_t *input, int offset, uint32_t value) {
   input[offset + 3] = (uint8_t) (value >> 24);
 }
 
-static void salsa_core(int count, uint8_t *src, uint8_t *dst) {
+static void salsa_core(int count, const uint8_t *src, uint8_t *dst) {
   uint32_t x[16];
   for (int i = 0; i < 16; i++) {
     x[i] = get_u32_le(src, i * 4);
@@ -60,6 +60,6 @@ static void salsa_core(int count, uint8_t *src, uint8_t *dst) {
 CAMLprim value
 caml_salsa_core(value count, value src, value dst)
 {
-  salsa_core(Int_val(count), Caml_ba_data_val(src), Caml_ba_data_val(dst));
+  salsa_core(Int_val(count), (const uint8_t*)(String_val(src)), Bytes_val(dst));
   return Val_unit;
 }

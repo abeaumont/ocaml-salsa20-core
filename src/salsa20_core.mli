@@ -5,14 +5,14 @@
 (** [salsa20_8_core input] is [output], the Salsa20/8 Core function.
     [input] must be 16 blocks of 32 bits.
     @raise Invalid_argument if [input] is not of the correct size *)
-val salsa20_8_core : Cstruct.t -> Cstruct.t
+val salsa20_8_core : string -> string
 
 (** [salsa20_12_core input] is [output], the Salsa20/12 Core function.
     [input] must be 16 blocks of 32 bits.
     @raise Invalid_argument if [input] is not of the correct size *)
-val salsa20_12_core : Cstruct.t -> Cstruct.t
+val salsa20_12_core : string -> string
 
 (** [salsa20_20_core input] is [output], the Salsa20/20 Core function.
     [input] must be 16 blocks of 32 bits.
     @raise Invalid_argument if [input] is not of the correct size *)
-val salsa20_20_core : Cstruct.t -> Cstruct.t
+val salsa20_20_core : string -> string
