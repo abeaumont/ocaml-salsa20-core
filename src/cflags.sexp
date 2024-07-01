@@ -1,1 +1,0 @@
-(--std=c99 -Wall -Wextra -O3)
