@@ -1,3 +1,8 @@
+# 2.0.0 (2024-07-14)
+
+* Provide a string -> string interface, removing Cstruct dependency
+  (#7, thanks to @hannesm).
+
 # 1.1.0 (2021-08-03)
 
 * Upgrade to Cstruct 6.0.0
