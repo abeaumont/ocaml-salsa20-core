@@ -1,14 +1,14 @@
 module Salsa_Core = struct
-  external salsa_core : int -> Cstruct.buffer -> Cstruct.buffer -> unit = "caml_salsa_core" [@@noalloc]
+  external salsa_core : int -> string -> bytes -> unit = "caml_salsa_core" [@@noalloc]
 end
 
 let salsa20_core count i =
   let l = 64 in
-  if Cstruct.length i <> l then invalid_arg "input must be 16 blocks of 32 bits"
+  if String.length i <> l then invalid_arg "input must be 16 blocks of 32 bits"
   else
-    let o = Cstruct.create l in
-    Salsa_Core.salsa_core count (Cstruct.to_bigarray i) (Cstruct.to_bigarray o);
-    o
+    let o = Bytes.create l in
+    Salsa_Core.salsa_core count i o;
+    Bytes.unsafe_to_string o
 
 let salsa20_8_core i =
   salsa20_core 4 i

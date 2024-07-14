@@ -1,9 +1,9 @@
 let test_salsa20_core ~f ~input ~output =
-  let open Cstruct in
-  let input = of_hex input
-  and output = output |> of_hex |> to_string in
+  let input = Ohex.decode input
+  and output = Ohex.decode output
+  in
   (fun () ->
-     let output2 = input |> f |> to_string in
+     let output2 = input |> f in
      Alcotest.check Alcotest.string "Salsa20 Core test" output output2)
 
 (* Salsa20/8 Core *)
@@ -65,15 +65,14 @@ let salsa20_20_core_tests = [
 
 (* Salsa20/20 Core with 1M iterations *)
 let test_salsa20_20_core_1M ~input ~output =
-  let open Cstruct in
-  let input = of_hex input
-  and output = output |> of_hex |> to_string in
+  let input = Ohex.decode input
+  and output = Ohex.decode output in
   (fun () ->
      let o = ref input in
      for _ = 1 to 1_000_000 do
        o := Salsa20_core.salsa20_20_core !o
      done;
-     let output2 = !o |> to_string in
+     let output2 = !o in
      Alcotest.check Alcotest.string "Salsa20 Core test" output output2)
 
 let salsa20_20_core_1M_test1 =
